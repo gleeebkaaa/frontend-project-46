@@ -1,4 +1,5 @@
-import gendiff from './bin/gendiff';
+test('gendifftest', async () => {
+  const gendiff = await import('./bin/gendiff');
 
 describe('gendiff', () => {
     test('добавление нового ключа', () => {
@@ -56,4 +57,6 @@ describe('gendiff', () => {
         }`;
         expect(gendiff(data1, data2)).toBe(expected);
     });
+});
+
 });
