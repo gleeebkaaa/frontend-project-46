@@ -27,7 +27,6 @@
   },
   "jest": {
     "transform": {},
-    "testEnvironment": "node",
-    "extensionsToTreatAsEsm": [".js"]
+    "testEnvironment": "node"
   }
 }
