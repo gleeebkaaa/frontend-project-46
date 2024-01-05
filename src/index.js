@@ -1,19 +1,24 @@
-const gendiff = (filepath1, filepath2, format) => {
+import path from 'path';
+import fs from 'fs';
+import gendiff from './diff.js';
+import parseData from './parsers/jsonParser.js';
 
-`
-относительный путь делается через path.resolve а process.cwd() - текущая папка из которой будет запускаться приложение
-далее с помощью path.extname можно вырезать формат после точки для сравнения в какой парсер отправлять тот или иной формат
-вынести в отдельную функцию куда мы будут отправляться сырые данные 
-пример:
-const getParseData = (data, ext) => {
-    switch (ext) {
-        case '.json': return JSON.parse(data)
-    } 
+    const generateDiff = ((filepath1, filepath2) => {
 
-    или конструкция if else
-}
+        const absolutFilePath1 = path.resolve(process.cwd(), filepath1);
+        const absolutFilePath2 = path.resolve(process.cwd(), filepath2);
 
-на проекте не дается yml формат нужно переводить с json с помощью онлайн-конвертера
-`
-    return ''
-}
+        const content1 = fs.readFileSync(absolutFilePath1, 'utf-8');
+        const content2 = fs.readFileSync(absolutFilePath2, 'utf-8');
+
+        const format1 = path.extname(absolutFilePath1);
+        const format2 = path.extname(absolutFilePath2);
+
+        const data1 = parseData(content1, format1);
+        const  data2 = parseData(content2, format2);
+
+        return gendiff (data1, data2);
+        
+    });
+
+    export default generateDiff;

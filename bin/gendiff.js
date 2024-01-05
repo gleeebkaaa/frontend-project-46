@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import parseData from './../src/parsers/jsonParser.js';
-import path from 'path';
+import generateDiff from '../src/index.js';
 
 program
     .description('Compares two configuration files and shows a difference.')
@@ -9,20 +8,12 @@ program
     .option('-f, --format <type>', 'output format')
     .arguments('<filepath1> <filepath2>')
     .action((filepath1, filepath2) => {
-
-        const absolutFilePath1 = path.resolve(process.cwd(), filepath1);
-        const absolutFilePath2 = path.resolve(process.cwd(), filepath2);
-
-        const data1 = parseData(absolutFilePath1);
-        const data2 = parseData(absolutFilePath2);
-
-        console.log(data1);
-        console.log(data2);
+        console.log(generateDiff(filepath1, filepath2));
     });
 
 program.helpInformation = function() {
     const helpInfo = [
-        'Usage: gendiff [options] <filepath1> <filpath2>',
+        'Usage: gendiff [options] <filepath1> <filepath2>',
         '',
         this.description(),
         '',
