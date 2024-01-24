@@ -1,5 +1,5 @@
 test('gendifftest', async () => {
-  const gendiff = await import('./bin/gendiff');
+  const generateDiff = await import('./bin/gendiff');
 
 describe('gendiff', () => {
     test('добавление нового ключа', () => {
@@ -10,7 +10,7 @@ describe('gendiff', () => {
             b: 2
           + c: 3
         }`;
-        expect(gendiff(data1, data2)).toBe(expected);
+        expect(generateDiff(data1, data2)).toBe(expected);
     });
 
     test('удаление существовавшего ключа', () => {
@@ -21,7 +21,7 @@ describe('gendiff', () => {
             b: 2
           - c: 3
         }`;
-        expect(gendiff(data1, data2)).toBe(expected);
+        expect(generateDiff(data1, data2)).toBe(expected);
     });
 
     test('изменение значения существующего ключа', () => {
@@ -32,7 +32,7 @@ describe('gendiff', () => {
           + a: 2
             b: 2
         }`;
-        expect(gendiff(data1, data2)).toBe(expected);
+        expect(generateDiff(data1, data2)).toBe(expected);
     });
 
     test('изменение значения ключей и их порядка', () => {
@@ -45,7 +45,7 @@ describe('gendiff', () => {
           + d: 3
           - c: 4  
         }`;
-        expect(gendiff(data1, data2)).toBe(expected);
+        expect(generateDiff(data1, data2)).toBe(expected);
     });
 
     test('без изменений', () => {
@@ -55,7 +55,7 @@ describe('gendiff', () => {
             f: 1
             g: 2
         }`;
-        expect(gendiff(data1, data2)).toBe(expected);
+        expect(generateDiff(data1, data2)).toBe(expected);
     });
 });
 
