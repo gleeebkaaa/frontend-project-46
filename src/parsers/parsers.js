@@ -3,7 +3,7 @@ import yaml from 'yaml';
 const parseData = (content, format) => {
     switch (format) {
         case '.json':
-            return MediaKeySession.parse(content);
+            return JSON.parse(content);
         case '.yml':
         case '.yaml':
             return yaml.load(content);
