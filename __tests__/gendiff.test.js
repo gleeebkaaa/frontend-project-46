@@ -1,3 +1,5 @@
+import fs from 'fs';
+import generateDiff from '../src/index.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
