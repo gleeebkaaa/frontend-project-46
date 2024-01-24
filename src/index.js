@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import gendiff from './diff.js';
-import parseData from './parsers/jsonParser.js';
+import parseData from './parsers/parsers.js';
 
     const generateDiff = ((filepath1, filepath2) => {
 
