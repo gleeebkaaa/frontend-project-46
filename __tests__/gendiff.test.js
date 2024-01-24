@@ -11,8 +11,8 @@ const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8'
 
 describe('generateDiff', () => {
     test('добавление нового ключа', () => {
-        const data1 = readFile('before_add.json');
-        const data2 = readFile('after_add.json');
+        const data1 = path.join('__fixtures__', 'before_add.json');
+        const data2 = path.join('__fixtures__', 'after_add.json');
         const expected = `{
             a: 1
             b: 2
@@ -22,8 +22,8 @@ describe('generateDiff', () => {
     });
 
     test('удаление существовавшего ключа', () => {
-        const data1 = readFile('before_remove.json');
-        const data2 = readFile('after_remove.json');
+        const data1 = path.join('__fixtures__', 'before_remove.json');
+        const data2 = path.join('__fixtures__', 'after_remove.json');
         const expected = `{
             a: 1
             b: 2
@@ -33,8 +33,8 @@ describe('generateDiff', () => {
     });
 
     test('изменение значения существующего ключа', () => {
-        const data1 = readFile('before_change.json');
-        const data2 = readFile('after_change.json');
+        const data1 = path.join('__fixtures__', 'before_change.json');
+        const data2 = path.join('__fixtures__', 'after_change.json');
         const expected = `{
           - a: 1
           + a: 2
@@ -44,8 +44,8 @@ describe('generateDiff', () => {
     });
 
     test('изменение значения ключей и их порядка', () => {
-        const data1 = readFile('before_change_order.json');
-        const data2 = readFile('after_change_order.json');
+        const data1 = path.join('__fixtures__', 'before_change_order.json');
+        const data2 = path.join('__fixtures__', 'after_change_order.json');
         const expected = `{
           - a: 1
           + a: 2
@@ -57,8 +57,8 @@ describe('generateDiff', () => {
     });
 
     test('без изменений', () => {
-        const data1 = readFile('before_no_change.json');
-        const data2 = readFile('after_no_change.json');
+        const data1 = path.join('__fixtures__', 'before_no_change.json');
+        const data2 = path.join('__fixtures__', 'after_no_change.json');
         const expected = `{
             f: 1
             g: 2
