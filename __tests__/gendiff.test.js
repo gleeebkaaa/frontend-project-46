@@ -1,7 +1,6 @@
-test('gendifftest', async () => {
-  const generateDiff = await import('./bin/gendiff');
+import generateDiff from '../src/index.js';
 
-describe('gendiff', () => {
+describe('generateDiff', () => {
     test('добавление нового ключа', () => {
         const data1 = { a: 1, b: 2 };
         const data2 = { a: 1, b: 2, c: 3 };
@@ -57,6 +56,4 @@ describe('gendiff', () => {
         }`;
         expect(generateDiff(data1, data2)).toBe(expected);
     });
-});
-
 });
