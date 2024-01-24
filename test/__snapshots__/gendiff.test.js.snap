@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateDiff без изменений 1`] = `
+"{
+}"
+`;
+
+exports[`generateDiff добавление нового ключа 1`] = `
+"{
++ c: 3
+}"
+`;
+
+exports[`generateDiff изменение значения ключей и их порядка 1`] = `
+"{
+- a: 1
++ a: 2
+- c: 4
++ d: 3
+}"
+`;
+
+exports[`generateDiff изменение значения существующего ключа 1`] = `
+"{
+- a: 1
++ a: 2
+}"
+`;
+
+exports[`generateDiff удаление существовавшего ключа 1`] = `
+"{
+- c: 3
+}"
+`;

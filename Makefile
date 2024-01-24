@@ -14,5 +14,7 @@ lint-fix:
 	npx eslint . --fix
 
 test:
-	npm jest
-
+	npm test
+	
+test-coverage:
+	npm run test-coverage
