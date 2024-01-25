@@ -1,23 +1,50 @@
-import pkg from 'lodash';
-const { has, union } = pkg;
+import _ from 'lodash';
 
 const gendiff = (data1, data2) => {
-    const keys = union(Object.keys(data1), Object.keys(data2));
-    const difference = keys.map((key) => {
-        if (!has(data2, key)) {
-            return `- ${key}: ${data1[key]}`;
+  const iter = (currentData1, currentData2, depth) => {
+    const indentSize = 4;
+    const currentIndent = ' '.repeat(depth * indentSize - 2);
+    const bracketIndent = ' '.repeat((depth - 1) * indentSize);
+    const keys = _.union(Object.keys(currentData1), Object.keys(currentData2)).sort();
 
-        } if (!has(data1, key)) {
-        return `+ ${key}: ${data2[key]}`;
+    const difference = keys.flatMap((key) => {
+      if (!_.has(currentData2, key)) {
+        return `${currentIndent}- ${key}: ${stringify(currentData1[key], depth + 1)}`;
+      }
+      if (!_.has(currentData1, key)) {
+        return `${currentIndent}+ ${key}: ${stringify(currentData2[key], depth + 1)}`;
+      }
+      if (_.isObject(currentData1[key]) && _.isObject(currentData2[key])) {
+        return `${currentIndent}  ${key}: ${iter(currentData1[key], currentData2[key], depth + 1)}`;
+      }
+      if (!_.isEqual(currentData1[key], currentData2[key])) {
+        return [
+          `${currentIndent}- ${key}: ${stringify(currentData1[key], depth + 1)}`,
+          `${currentIndent}+ ${key}: ${stringify(currentData2[key], depth + 1)}`
+        ];
+      }
+      return `${currentIndent}  ${key}: ${stringify(currentData1[key], depth + 1)}`;
+    });
 
-        } if (data1[key] !== data2[key]) {
-            return [`- ${key}: ${data1[key]}`, `+ ${key}: ${data2[key]}`].join('\n');
-        }
-            return null;
+    return ['{', ...difference, `${bracketIndent}}`].join('\n');
+  };
 
-        }).filter(Boolean);
+  const stringify = (value, depth) => {
+    if (!_.isObject(value)) {
+      return typeof value === 'string' ? value : String(value);
+    }
+    const indentSize = 4;
+    const currentIndent = ' '.repeat(depth * indentSize);
+    const bracketIndent = ' '.repeat((depth - 1) * indentSize);
+    const lines = Object.entries(value).map(([key, val]) =>
+      `${currentIndent}${key}: ${stringify(val, depth + 1)}`
+    );
+    return ['{', ...lines, `${bracketIndent}}`].join('\n');
+  };
 
-        return ['{', ...difference,'}'].join(`\n`);
+  return iter(data1, data2, 1);
 };
 
 export default gendiff;
+
+

@@ -1,4 +1,4 @@
-import yaml from 'yaml';
+import yaml from 'js-yaml';
 
 const parseData = (content, format) => {
     switch (format) {
